@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'sites',
     'videos',
 ]
@@ -54,8 +55,18 @@ ROOT_URLCONF = 'azurecasts.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'common/templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'azurecasts.jinja2.environment'
+        },
+    },
+
+    # Django template engine is still included for legacy apps.
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,7 +76,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = 'azurecasts.wsgi.application'
@@ -113,7 +124,37 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images) with django_compressor
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'build')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'common/static')
+]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'sass --scss {infile} {outfile} --sourcemap=none'),
+)
+
+COMPRESS_OFFLINE = True
+
+
+def get_compressor_offline_support():
+    """
+    A callable to pass to COMPRESS_JINJA2_GET_ENVIRONMENT in order to enable
+    offline compression support. See: http://django-compressor.readthedocs.org/en/latest/jinja2/
+    """
+    from django.template import engines
+    return engines["jinja2"].env
+
+
+COMPRESS_JINJA2_GET_ENVIRONMENT = get_compressor_offline_support

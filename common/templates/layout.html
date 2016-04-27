@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AzureCasts</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{{ static('scss/base.scss') }}" type="text/x-scss">
+    <link rel="stylesheet" href="{{ static('videos/scss/videos.scss') }}" type="text/x-scss">
+    {% endcompress %}
+
+</head>
+<body>
+    {% include 'nav.html' %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% compress js %}
+    <script src="{{ static('js/main.js') }}" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+</body>
+</html>
