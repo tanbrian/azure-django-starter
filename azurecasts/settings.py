@@ -56,7 +56,7 @@ ROOT_URLCONF = 'azurecasts.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'common/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'common/jinja2')],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'azurecasts.jinja2.environment'
@@ -154,7 +154,7 @@ def get_compressor_offline_support():
     offline compression support. See: http://django-compressor.readthedocs.org/en/latest/jinja2/
     """
     from django.template import engines
-    return engines["jinja2"].env
+    return engines['jinja2'].env
 
 
 COMPRESS_JINJA2_GET_ENVIRONMENT = get_compressor_offline_support

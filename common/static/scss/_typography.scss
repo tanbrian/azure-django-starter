@@ -6,3 +6,16 @@ a {
   font-family: $base-font-family;
 }
 
+a {
+  color: $primary-color;
+  text-decoration: none;
+  border-bottom: 1px dotted $primary-color;
+
+  &:hover {
+    color: gray;
+    border-bottom-color: gray;
+  }
+
+  transition: .5s;
+}
+

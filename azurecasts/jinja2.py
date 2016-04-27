@@ -21,6 +21,5 @@ def environment(**options):
     env.globals.update({
         'static': staticfiles_storage.url,
         'url': reverse,
-        'STATIC_URL': settings.STATIC_URL
     })
     return env
