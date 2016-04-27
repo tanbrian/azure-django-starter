@@ -4,7 +4,7 @@ This project is so far just Django boilerplate code set up with `django-dotenv` 
 
 ### Setup
 
-Create a virtual environment with Python 3 and `pip` and run `pip install -R` to install package dependencies. Next, prepare the development environment by filling in fields in provided `.env.example` file. Assign a randomly generated string of fifty characters to the `SECRET KEY` and the location of your MySQL configuration file to `MYSQL_CONFIG`. The MySQL configuration file should be in the format:
+Create a virtual environment with Python 3 and `pip` and run `pip install -R requirements.txt` to install package dependencies. Next, prepare the development environment by filling in fields in provided `.env.example` file. Assign a randomly generated string of fifty characters to the `SECRET KEY` and the location of your MySQL configuration file to `MYSQL_CONFIG`. The MySQL configuration file should be in the format:
 
 ```
 [client]
@@ -49,12 +49,12 @@ manage.py
 requirements.txt
 ```
 
-`azurecasts/` contains global settings and project configuration in `settings.py`. Additional Jinja2 environment configuration, which is required for `django-comressor` to work, is done in `jinja2.py`. `azurecasts/urls.py` has project-wide root level routing.
+`azurecasts/` contains global settings and project configuration in `settings.py`. Additional Jinja2 environment configuration, which is required for `django-compressor` to work, is done in `jinja2.py`. `azurecasts/urls.py` has project-wide root level routing.
 
 `build/` is *not* part of the repository, but is created automatically by `django-compressor` when running the local development server or by running `python manage.py compress`. This directory contains the SCSS files compiled into CSS, and minified CSS/JS.
 
 `common/` contains templates and stylesheets that don't really belong to a particular app, For example, the template and styles for the home page or navigation bar go into the `common/` assets.
 
-`sites/` and `videos/` are mostly empty apps. Static file organization is done as the Django documentation recommends. Directories originally named `templates` are named `jinja2` in order for the Jinja2 template engine to find them. The `scss` and `js` directories containing the actual static assets are doubly nested within the app with `app_name/static/app_name/scss` so that each app's static assets are namespaced, which prevents accidently overwriting other files that are named the same. This structure will be the same for every app.
+`sites/` and `videos/` are mostly empty apps. Static file organization is done as the Django documentation recommends. Directories originally named `templates` are named `jinja2` in order for the Jinja2 template engine to find them. The `scss` and `js` directories containing the actual static assets are doubly nested within the app with `app_name/static/app_name/scss` so that each app's static assets are namespaced, which prevents accidentally overwriting other files that are named the same. This structure will be the same for every app.
 
 `.env` file contains per-environment configuration and `requirements.txt` contains the necessary package dependencies.
